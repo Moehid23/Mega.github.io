@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="img/flowers.png" type="image/x-icon">
+  <title>Flowers 4 U</title>
+</head>
+
+<body>
+  <div class="greetings">
+    <span>H</span>
+    <span>A</span>
+    <span>L</span>
+    <span>L</span>
+    <span>O</span>
+    <br>
+    <span>M</span>
+    <span>E</span>
+    <span>G</span>
+    <span>A</span>
+  </div>
+
+  <div class="description">
+    <span>I've something special for you,<br>Maybe we're just getting to know each other and have never met before. but
+      <br> As a substitute for a flowers bouquet 💐, I dedicate this flower to you</span>
+  </div>
+  <div class="description1">
+    <span>"jangan paksakan apapun standar hidupmu perhatian yang kamu mau, relasimu dengan seseorang, cinta, termasuk dengan-diri sendiri. Jangan jahat-jahat sama diri sendiri karna kalau kamu paksakan hal tersebut berarti hal itu ga layak kamu perjuangkan." </span>
+  </div>
+  <div class="description">
+    <span>if you can dream it, you can do it.
+    <br>One thing you  should know, you are special!</span>
+      <div class="button">
+    <button onclick="enableAutoplay()">
+      <a href="flower.html">Click Here</a>
+    </button>
+  </div>
+  </div>
+
+  <div>⬇️⬇️ Play This ⬇️⬇️</div>
+  <audio controls autoplay id="audioPlayer">
+    <source src="lagu.mp3" type="audio/mp3">
+    Your browser does not support the audio tag.
+  </audio>
+
+  <script>
+    class CustomAudioPlayer {
+      constructor(selector) {
+        this.audioPlayer = document.querySelector(selector);
+
+        if (this.audioPlayer) {
+          this.setupEventListeners();
+          this.tryAutoplay();
+        }
+      }
+
+      setupEventListeners() {
+        this.audioPlayer.addEventListener('play', () => {
+          localStorage.setItem('currentTime', this.audioPlayer.currentTime);
+        });
+
+        this.audioPlayer.addEventListener('pause', () => {
+          localStorage.setItem('currentTime', this.audioPlayer.currentTime);
+        });
+
+        window.addEventListener('load', () => {
+          const storedTime = localStorage.getItem('currentTime');
+          if (storedTime) {
+            this.audioPlayer.currentTime = parseFloat(storedTime);
+          }
+
+          this.tryAutoplay();
+        });
+      }
+
+      tryAutoplay() {
+        this.audioPlayer.play().catch((error) => {
+          console.error('Autoplay was prevented:', error);
+        });
+      }
+
+      enableAutoplay() {
+        document.body.removeEventListener('click', this.enableAutoplay);
+        this.audioPlayer.play().catch((error) => {
+          console.error('Autoplay was prevented:', error);
+        });
+      }
+    }
+
+    // Usage
+    const customAudioPlayer = new CustomAudioPlayer('#audioPlayer');
+    document.body.addEventListener('click', () => customAudioPlayer.enableAutoplay());
+  </script>
+</body>
+
+</html>
